@@ -23,7 +23,6 @@ const {
   sendUserById,
   sendMe,
 } = require("../controllers/users");
-
 usersRouter.get("/users", findAllUsers, filterPassword, sendAllUsers);
 
 usersRouter.get("/me", checkAuth, sendMe);
@@ -40,6 +39,7 @@ usersRouter.post(
   createUser,
   sendUserCreated
 );
+
 
 usersRouter.put(
   "/users/:id",

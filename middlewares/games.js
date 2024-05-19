@@ -24,10 +24,12 @@ const findGameById = async (req, res, next) => {
       .populate("users"); 
     next(); 
   } catch (error) {
+    res.setHeader("Content-Type", "application/json");
     res.status(404).send({ message: "Игра не найдена" });
   }
 };
 
+//Тема 3/4: Хранение данных → Урок 19/20
 const createGame = async (req, res, next) => {
   console.log("POST /games");
   try {
@@ -44,20 +46,20 @@ const updateGame = async (req, res, next) => {
     req.game = await games.findByIdAndUpdate(req.params.id, req.body);
     next();
   } catch (error) {
+    res.setHeader("Content-Type", "application/json"); // но без неё, но с ней не вылетает error
     res.status(400).send({ message: "Ошибка обновления игры" });
   }
 };
 
 const deleteGame = async (req, res, next) => {
   try {
-    // Методом findByIdAndDelete по id находим и удаляем документ из базы данных
     req.game = await games.findByIdAndDelete(req.params.id);
     next();
   } catch (error) {
     res.status(400).send({ message: "Error deleting game" });
   }
 };
-
+//? Тема 4/4: Работа с сервером → Урок 10/23
 const checkIsVoteRequest = async (req, res, next) => {
   if (Object.keys(req.body).length === 1 && req.body.users) {
     req.isVoteRequest = true;
@@ -85,14 +87,10 @@ const checkEmptyFields = async (req, res, next) => {
 };
 
 const checkIfUsersAreSafe = async (req, res, next) => {
-  // Проверим, есть ли users в теле запроса
   if (!req.body.users) {
     next();
     return;
   }
-  // Cверим, на сколько изменился массив пользователей в запросе
-  // с актуальным значением пользователей в объекте game
-  // Если больше чем на единицу, вернём статус ошибки 400 с сообщением
   if (req.body.users.length - 1 === req.game.users.length) {
     next();
     return;

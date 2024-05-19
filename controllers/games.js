@@ -1,5 +1,3 @@
-
-
 const sendAllGames = (req, res) => {
   res.setHeader("Content-Type", "application/json");
   res.end(JSON.stringify(req.gamesArray));
@@ -12,8 +10,9 @@ const sendGameCreated = (req, res) => {
 
 const sendGameUpdated = (req, res) => {
   res.setHeader("Content-Type", "application/json");
-  res.end({ message: "Игра обновлена" });
+  res.status(200).send(JSON.stringify({ message: "Игра обновлена" }));
 };
+
 
 const sendGameById = (req, res) => {
   res.setHeader("Content-Type", "application/json");

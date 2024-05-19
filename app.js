@@ -15,7 +15,7 @@ connectToDatabase();
 
 app.use(
   cors,
-  cookieParser(),
+  cookieParser(), 
   bodyParser.json(),
   pagesRouter,
   apiRouter,

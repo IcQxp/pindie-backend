@@ -7,6 +7,11 @@ const findAllCategories = async (req, res, next) => {
 };
 
 const checkIfCategoriesAvaliable = async (req, res, next) => {
+  //? Тема 4/4: Работа с сервером → Урок 10/23
+  if(req.isVoteRequest) {
+    next();
+    return;
+  }
   if (!req.body.categories || req.body.categories.length === 0) {
     res.setHeader("Content-Type", "application/json");
     res

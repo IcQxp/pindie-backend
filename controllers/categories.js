@@ -15,7 +15,7 @@ const sendCategoryById = (req, res) => {
 
 const sendCategoryUpdated = (req, res) => {
   res.setHeader("Content-Type", "application/json");
-  res.end({ message: "Категория обновлена" });
+  res.status(200).send(JSON.stringify({ message: "Категория обновлена" }));
 };
 
 const sendCategoryDeleted = (req, res) => {
@@ -23,7 +23,6 @@ const sendCategoryDeleted = (req, res) => {
   res.end(JSON.stringify(req.category));
 };
 
-// Экспортируем контроллер
 module.exports = {
   sendAllCategories,
   sendCategoryCreated,
